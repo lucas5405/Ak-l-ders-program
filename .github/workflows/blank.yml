@@ -10,24 +10,29 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    defaults:
+      run:
+        working-directory: AkilliDersPlanlayici
+
     steps:
-      - name: Projeyi indir
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Java 17 kur
+      - name: Set up JDK 17
         uses: actions/setup-java@v5
         with:
-          distribution: temurin
+          distribution: 'temurin'
           java-version: '17'
 
-      - name: Gradle izinlerini ver
+      - name: Make gradlew executable
         run: chmod +x gradlew
 
-      - name: APK oluştur
+      - name: Build APK
         run: ./gradlew assembleDebug
 
-      - name: APK'yı yükle
+      - name: Upload APK
         uses: actions/upload-artifact@v4.3.3
         with:
           name: Ders-Uygulamasi-APK
-          path: '**/build/outputs/apk/debug/*.apk'
+          path: AkilliDersPlanlayici/app/build/outputs/apk/debug/*.apk
+          
