@@ -1,0 +1,33 @@
+name: Build APK
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Projeyi indir
+        uses: actions/checkout@v4
+
+      - name: Java 17 kur
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Gradle izinlerini ver
+        run: chmod +x gradlew
+
+      - name: APK oluştur
+        run: ./gradlew assembleDebug
+
+      - name: APK'yı yükle
+        uses: actions/upload-artifact@v4
+        with:
+          name: Ders-Uygulamasi-APK
+          path: '**/build/outputs/apk/debug/*.apk'
