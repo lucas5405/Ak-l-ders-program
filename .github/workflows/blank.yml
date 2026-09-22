@@ -15,7 +15,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Java 17 kur
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: '17'
@@ -27,7 +27,7 @@ jobs:
         run: ./gradlew assembleDebug
 
       - name: APK'yı yükle
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v4.3.3
         with:
           name: Ders-Uygulamasi-APK
           path: '**/build/outputs/apk/debug/*.apk'
